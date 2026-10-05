@@ -1,17 +1,13 @@
 <?php
-
-spl_autoload_register(function ($namaController) {
-
+spl_autoload_register(function ($namacontroller) {
     $paths = ['controller/', 'model/', 'config/', 'core/'];
 
     foreach ($paths as $path) {
-        $file = $path . $namaController . '.php';
-
+        $file = $path . $namacontroller . '.php';
         if (file_exists($file)) {
             require_once $file;
             return;
         }
     }
-
-    echo "Class $namaController tidak ditemukan.";
+    echo "Class '$namacontroller' tidak ditemukan.";
 });

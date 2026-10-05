@@ -1,48 +1,40 @@
 <?php
+
 require_once 'config/autoload.php';
 require_once 'config/routes.php';
 
-$url = $_GET['url'] ?? $route['default_controller'] . '/' . $route['default_method'];
+$url = $_GET['url'] ?? $route['default_controller'] . '/index';
 
-//if ($url == '') {
-//    $url = $route['default_controller'] . '/index';
-//}
-
-//$url = trim($url, '/');
+$url = trim($url, '/');
 
 $segment = explode('/', $url);
 
-//$controller = $segment[0] ?? $route['default_controller'];
-//$method     = $segment[1] ?? 'index';
-
-$method    = $segment[1];
+$controller = $segment[0] ?? $route['default_controller'];
+$method = $segment[1] ?? 'index';
 $parameter = $segment[2] ?? null;
 
-//$controllerName = ucfirst($controller);
-$controllerName = ucfirst($segment[0]);
+$controllerName = ucfirst($controller);
 
 $controllerFile = 'controller/' . $controllerName . '.php';
 
-//if (file_exists($controllerFile)) {
-//    require_once $controllerFile;
-//}
+if (!file_exists($controllerFile)) {
+    die("Controller tidak ditemukan: " . $controllerFile);
+}
+
+require_once $controllerFile;
+
+if (!class_exists($controllerName)) {
+    die("Class Controller tidak ditemukan: " . $controllerName);
+}
 
 $objController = new $controllerName();
 
-if (method_exists($objController, $method)) {
-
-    if ($parameter !== null) {
-        $objController->$method($parameter);
-    } else {
-        $objController->$method();
-    }
-
-} else {
-
-    echo "Method tidak ditemukan.";
-
+if (!method_exists($objController, $method)) {
+    die("Method tidak ditemukan: " . $method);
 }
 
-//} else {
-//    echo "Controller tidak ditemukan.";
-//}
+if ($parameter !== null) {
+    $objController->$method($parameter);
+} else {
+    $objController->$method();
+}

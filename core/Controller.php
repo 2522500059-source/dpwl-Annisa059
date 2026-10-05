@@ -3,7 +3,7 @@ class Controller
 {
     public function __construct()
     {
-        $this->load = new class {
+        $this->load->view = new class {
             public function view($viewName, $data = [])
             {
                 if (!empty($data)) extract($data);
@@ -16,4 +16,4 @@ class Controller
             }
         };
     }
-}
+} 
