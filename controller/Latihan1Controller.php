@@ -1,11 +1,12 @@
 <?php
-//require_once 'model/Latihan1Model.php';
-class Latihan1Controller
+
+class Latihan1Controller extends Controller
 {
     public function index()
     {
-        $model = new Latihan1Model();
-        $datamhs = $model->getAllMhs();
-        require './view/latihan1view.php';
+        $data['datamhs'] = $this->load->model('Latihan1Model')->getAllMhs();
+        $this->session->set_userdata('nmuser', 'Fakhril');
+        $data['nama_user'] = $this->session->userdata('nmuser');
+        $this->load->view('latihan1view', $data);
     }
 }

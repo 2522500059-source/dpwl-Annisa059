@@ -25,5 +25,6 @@
         </tr>
         <?php endforeach; ?>
     </table>
+    Admin, <?=  htmlspecialchars($nama_user) ?>
 </body>
 </html>

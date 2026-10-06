@@ -2,6 +2,9 @@
 
 require_once 'config/autoload.php';
 require_once 'config/routes.php';
+require_once 'config/config.php';
+require_once 'helper/url_helper.php';
+
 
 $url = $_GET['url'] ?? $route['default_controller'] . '/index';
 
