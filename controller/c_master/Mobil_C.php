@@ -36,6 +36,8 @@ class Mobil_C extends Controller
         $ft_blkg = 'Belakang'. $this->load->post('no_plat');
         $ft_interior = 'Interior'. $this->load->post('no_plat');
 
+        $namaFiledepan = '';
+
         $folder = dirname(__DIR__, 2) . '/img/';
         if (isset($_FILES['ft_depan']) && $_FILES['ft_depan']['error'] == 0) {
              $file = $_FILES['ft_depan'];

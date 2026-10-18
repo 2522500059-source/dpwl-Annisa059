@@ -6,7 +6,7 @@
   <div class="sidebar">
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-      <img src="<?= base_url('foto.jpg')?>" class="img-circle elevation-2" alt="foto.jpg">
+      <img src="<?= base_url('foto.png')?>" class="img-circle elevation-2" alt="foto.png">
       </div>
       <div class="info">
         <a href="#" class="d-block"><?= 'User: ' . 'Annisa' ?></a>

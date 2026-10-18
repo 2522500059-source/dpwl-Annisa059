@@ -17,7 +17,12 @@ $parameter = $segment[2]?? null;
 
 $controllerName = ucfirst($controller);
 $controllerName = ucfirst($segment[0]);
-$controllerFile = 'controller/'. $controllerName. '.php';
+
+if ($controllerName == 'Mobil_C') {
+    $controllerFile = 'controller/c_master/' . $controllerName . '.php';
+} else {
+    $controllerFile = 'controller/'. $controllerName. '.php';
+}
 
 if (file_exists($controllerFile)) {
     require_once $controllerFile;
