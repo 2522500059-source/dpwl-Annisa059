@@ -3,9 +3,9 @@ class Mobil_C extends Controller
 {
     public function index()
     {
-        $info['nm_user'] = explode('@', $this->session->userdata('emailuser'))[0];
         $cekdata = $this->load->model('m_master/Mobil_M');
         $dt['dtmobil'] = $cekdata->datamobil();
+        $info['nm_user'] = explode('@', $this->session->userdata('emailuser'))[0];
         $this->load->view('layout/header');
         $this->load->view('layout/sidebar', $info);
         $this->load->view('v_master/mobilview', $dt);
@@ -32,24 +32,40 @@ class Mobil_C extends Controller
             exit;
         }
 
-        $ft_depan = 'Depan'. $this->load->post('no_plat');
-        $ft_blkg = 'Belakang'. $this->load->post('no_plat');
-        $ft_interior = 'Interior'. $this->load->post('no_plat');
 
-        $namaFiledepan = '';
 
-        $folder = dirname(__DIR__, 2) . '/img/';
-        if (isset($_FILES['ft_depan']) && $_FILES['ft_depan']['error'] == 0) {
-             $file = $_FILES['ft_depan'];
-             $info = getimagesize($file['tmp_name']);
-            $ext = ['image/jpeg' => 'jpg', 'image/png' => 'png'];
-    if ($info && isset($ext[$info['mime']]) && $file['size'] <= 2 * 1024 * 1024) {
-        $namaFiledepan = $ft_depan . '.' . $ext[$info['mime']];
-        move_uploaded_file($file['tmp_name'], $folder . $namaFiledepan);
-    } else {
-        echo "<script>alert('Gagal simpan gambar, cek ukuran dan format..!');</script>";
-    }
-}
+        $ft_depan = 'Depan' . $this->load->post('no_plat');
+        $ft_blkg = 'Belakang' . $this->load->post('no_plat');
+        $ft_interior = 'Interior' . $this->load->post('no_plat');
+        
+       $nm_gambar = $_FILES['ft_depan']['tmp_name'];
+        $ekstensi = explode(".", $_FILES['ft_depan']['name']);
+        $ekstensi = end($ekstensi);
+        $ft_depan = $ft_depan . "." . $ekstensi;
+        $target_dir = dirname(__DIR__, 2) . '/img/' . $ft_depan;
+        if ($ekstensi == "jpg" || $ekstensi == "png" || $ekstensi == "jpeg") {
+            move_uploaded_file($nm_gambar, $target_dir);
+        }
+
+        // 2. FOTO BELAKANG
+        $nm_gambar2 = $_FILES['ft_blkg']['tmp_name'];
+        $ekstensi2 = explode(".", $_FILES['ft_blkg']['name']);
+        $ekstensi2 = end($ekstensi2);
+        $ft_blkg = $ft_blkg . "." . $ekstensi2;
+        $target_dir2 = dirname(__DIR__, 2) . '/img/' . $ft_blkg;
+        if ($ekstensi2 == "jpg" || $ekstensi2 == "png" || $ekstensi2 == "jpeg") {
+            move_uploaded_file($nm_gambar2, $target_dir2);
+        }
+
+        // 3. FOTO INTERIOR
+        $nm_gambar3 = $_FILES['ft_interior']['tmp_name'];
+        $ekstensi3 = explode(".", $_FILES['ft_interior']['name']);
+        $ekstensi3 = end($ekstensi3);
+        $ft_interior = $ft_interior . "." . $ekstensi3;
+        $target_dir3 = dirname(__DIR__, 2) . '/img/' . $ft_interior;
+        if ($ekstensi3 == "jpg" || $ekstensi3 == "png" || $ekstensi3 == "jpeg") {
+            move_uploaded_file($nm_gambar3, $target_dir3);
+        }
 
         $data = [
             'no_plat' => $this->load->post('no_plat'),
@@ -59,7 +75,7 @@ class Mobil_C extends Controller
             'jns_mobil' => $this->load->post('jns_mobil'),
             'transmisi' => $this->load->post('transmisi'),
             'thn_buat' => $this->load->post('thn_buat'),
-            'ft_depan' => $namaFiledepan,
+            'ft_depan' => $ft_depan,
             'ft_blkg' => $ft_blkg,
             'ft_interior' => $ft_interior,
             'hrg_hari' => $this->load->post('hrg_hari'),
@@ -72,7 +88,7 @@ class Mobil_C extends Controller
         if ($simpan) {
             echo "<script>
                 alert('Data mobil berhasil disimpan!');
-                window.location.href = '". base_url('Mobil_C/index'). "';
+                window.location.href = '" . base_url('?url=c_master/Mobil_C/index') . "';
             </script>";
         } else {
             echo "<script>
