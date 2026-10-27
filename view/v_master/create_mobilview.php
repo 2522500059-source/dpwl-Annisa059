@@ -28,8 +28,9 @@
                                 <div class="form-group"><label>Jenis Mobil</label><input type="text" name="jns_mobil" class="form-control"></div>
                                 <div class="form-group"><label>Tahun Buat</label><input type="text" name="thn_buat" class="form-control"></div>
                                 <div class="form-group"><label>Foto Depan</label><input type="file" name="ft_depan" class="form-control"></div>
-                                <div class="form-group"><label>Harga/Hari</label><input type="number" name="Biaya Per Hari" class="form-control"></div>
-                            </div>
+                                <div class="form-group"><label>Harga/Hari</label><input type="number" name="hrg_hari" class="form-control"
+                                placeholder="Masukkan biaya per hari" min="0" required>
+                                </div>
                             <div class="col-md-6">
                                 <div class="form-group"><label>Jumlah Bagasi</label><input type="number" name="nbagasi" class="form-control"></div>
                                 <div class="form-group"><label>Transmisi</label><select name="transmisi" class="form-control"><option>Manual</option><option>Automatic</option></select></div>

@@ -9,7 +9,7 @@
       <img src="<?= base_url('foto.png')?>" class="img-circle elevation-2" alt="foto.png">
       </div>
       <div class="info">
-        <a href="#" class="d-block"><?= 'User: ' . 'Annisa' ?></a>
+        <a href="#" class="d-block"><?= 'User: ' . $nm_user ?></a>
       </div>
     </div>
 
@@ -27,7 +27,7 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         
-        <!-- 1. MASTER DATA - Hasil copy baris 38-60 yang pertama -->
+        <!-- 1. MASTER DATA -->
         <li class="nav-item menu-open">
           <a href="#" class="nav-link active">
             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -38,7 +38,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="<?= base_url('mobil_C/index') ?> " class="nav-link">
+              <a href="<?= base_url('?url=c_master/Mobil_C/index') ?>" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Data Mobil</p>
               </a>
@@ -52,7 +52,7 @@
           </ul>
         </li>
 
-        <!-- 2. TRANSAKSI - Hasil paste di garis kuning, kemudian diubah namanya -->
+        <!-- 2. TRANSAKSI -->
         <li class="nav-item menu-open">
           <a href="#" class="nav-link active">
             <i class="nav-icon fas fa-exchange-alt"></i>
@@ -89,7 +89,7 @@
           </ul>
         </li>
 
-        <!-- 3. LAPORAN - Copy lagi dari Transaksi -->
+        <!-- 3. LAPORAN -->
         <li class="nav-item menu-open">
           <a href="#" class="nav-link active">
             <i class="nav-icon fas fa-chart-bar"></i>
@@ -108,13 +108,12 @@
           </ul>
         </li>
 
-        <!-- 4. LOGOUT -->
+        <!-- 4. LOGOUT - INI KODE SLIDE, TANPA UBAH YANG DI ATAS -->
         <li class="nav-item">
-          <a href="<?= base_url('Login_C/logout') ?>" class="nav-link">
-            <i class="nav-icon fas fa-sign-out-alt"></i>
+          <a href="<?= base_url('?url=c_master/Mobil_C/keluar') ?>" class="nav-link">
+            <i class="nav-icon fas fa-th"></i>
             <p>
               Logout
-              <span class="right badge badge-danger">New</span>
             </p>
           </a>
         </li>
