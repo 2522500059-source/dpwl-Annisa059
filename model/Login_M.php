@@ -1,4 +1,3 @@
-
 <?php
 class Login_M extends Model
 {

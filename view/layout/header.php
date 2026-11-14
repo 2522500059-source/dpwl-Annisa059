@@ -8,9 +8,10 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
-  <!-- CSS AdminLTE -->
-  <link rel="stylesheet" href="<?= base_url() ?>AdminLTE-3.2.0/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
-  <link rel="stylesheet" href="<?= base_url() ?>AdminLTE-3.2.0/AdminLTE-3.2.0/dist/css/adminlte.min.css">
+  
+<!-- CSS AdminLTE -->
+<link rel="stylesheet" href="<?= base_url() ?>AdminLTE-3.2.0/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="<?= base_url() ?>AdminLTE-3.2.0/AdminLTE-3.2.0/dist/css/adminlte.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini">

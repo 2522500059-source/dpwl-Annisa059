@@ -1,5 +1,5 @@
 <?php
-spl_autoload_register(function ($namacontroller) {
+spl_autoload_register(function ($namacontroller) { 
     $paths = ['controller/', 'model/', 'config/', 'core/', 'controller/c_master/'];
 
     foreach ($paths as $path) {

@@ -1,12 +1,15 @@
 
 <?php
+
 class Penyewa_C059 extends Controller
 {
     public function index()
     {
         $cekdata = $this->load->model('m_master/Penyewa_M059');
         $dt['dtpenyewa'] = $cekdata->datapenyewa();
-        $info['nm_user'] = explode('@', $this->session->userdata('emailuser'))[0];
+
+        $email = $this->session->userdata('emailuser');
+        $info['nm_user'] = $email ? explode('@', $email)[0] : '';
 
         $this->load->view('layout/header');
         $this->load->view('layout/sidebar', $info);
@@ -16,7 +19,8 @@ class Penyewa_C059 extends Controller
 
     public function create_penyewa()
     {
-        $info['nm_user'] = explode('@', $this->session->userdata('emailuser'))[0];
+        $email = $this->session->userdata('emailuser');
+        $info['nm_user'] = $email ? explode('@', $email)[0] : '';
 
         $this->load->view('layout/header');
         $this->load->view('layout/sidebar', $info);
@@ -135,7 +139,6 @@ class Penyewa_C059 extends Controller
                 window.location.href = '" . base_url('?url=c_master/Penyewa_C059/index') . "';
             </script>";
         } else {
-            // Hapus foto jika penyimpanan database gagal
             if (file_exists($folder . $ft_ktp)) {
                 unlink($folder . $ft_ktp);
             }
@@ -145,7 +148,7 @@ class Penyewa_C059 extends Controller
             }
 
             echo "<script>
-                alert('Data penyewa gagal disimpan! Periksa struktur tabel dan query database.');
+                alert('Data penyewa gagal disimpan! Periksa query dan struktur tabel database.');
                 window.history.back();
             </script>";
         }
@@ -155,7 +158,8 @@ class Penyewa_C059 extends Controller
 
     public function edit($Nik059)
     {
-        $info['nm_user'] = explode('@', $this->session->userdata('emailuser'))[0];
+        $email = $this->session->userdata('emailuser');
+        $info['nm_user'] = $email ? explode('@', $email)[0] : '';
 
         $penyewa = $this->load->model('m_master/Penyewa_M059');
         $dt['penyewa'] = $penyewa->detailpenyewa($Nik059);
@@ -174,7 +178,6 @@ class Penyewa_C059 extends Controller
     public function UpdatePenyewa()
     {
         $penyewa = $this->load->model('m_master/Penyewa_M059');
-
         $Nik059 = $this->load->post('Nik059');
 
         $folder = dirname(__DIR__, 2) . '/img/';
