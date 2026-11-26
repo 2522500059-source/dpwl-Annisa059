@@ -1,10 +1,14 @@
+
 <?php
 
 class Session
 {
     public function __construct()
     {
-        session_start();
+        // Memeriksa apakah session belum dimulai
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
     }
 
     public function set_userdata($key, $value)

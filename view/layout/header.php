@@ -10,8 +10,8 @@
 
   
 <!-- CSS AdminLTE -->
-<link rel="stylesheet" href="<?= base_url() ?>AdminLTE-3.2.0/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
-<link rel="stylesheet" href="<?= base_url() ?>AdminLTE-3.2.0/AdminLTE-3.2.0/dist/css/adminlte.min.css">
+<link rel="stylesheet" href="<?= base_url() ?>AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="<?= base_url() ?>AdminLTE-3.2.0/dist/css/adminlte.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini">

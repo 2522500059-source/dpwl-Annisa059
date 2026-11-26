@@ -1,4 +1,3 @@
-
 <div class="content-wrapper">
 
   <!-- Content Header -->
@@ -28,7 +27,7 @@
         <div class="card-body">
 
           <!-- Tombol Tambah Data -->
-          <a href="<?= base_url('?url=c_master/Penyewa_C059/create_penyewa') ?>"
+          <a href="<?= base_url('c_master/Penyewa_C059/create_penyewa') ?>"
              class="btn btn-primary mb-3">
             <i class="fas fa-plus"></i> Tambah Data Penyewa
           </a>
@@ -56,40 +55,28 @@
 
                 if (isset($dtpenyewa) && !empty($dtpenyewa)) :
                     foreach ($dtpenyewa as $p) :
+                        $p = (array) $p;
+                        $nik = $p['nik059'] ?? $p['Nik059'] ?? '';
+                        $user = $p['user_plg059'] ?? $p['User_plg059'] ?? '';
+                        $nama = $p['nm_lngkp059'] ?? $p['Nm_lngkp059'] ?? '';
+                        $hp = $p['no_hp059'] ?? $p['No_hp059'] ?? '';
+                        $alamat = $p['almt_lngkp059'] ?? $p['Almt_lngkp059'] ?? '';
+                        $ktp = $p['ft_ktp'] ?? $p['Ft_ktp'] ?? '';
+                        $sim = $p['ft_sim_a'] ?? $p['Ft_sim_a'] ?? '';
                 ?>
 
                 <tr>
                   <td><?= $no++ ?></td>
-
-                  <td>
-                    <?= htmlspecialchars($p['user_plg059'] ?? '', ENT_QUOTES, 'UTF-8') ?>
-                  </td>
-
-                  <td>
-                    <?= htmlspecialchars($p['Nik059'] ?? '', ENT_QUOTES, 'UTF-8') ?>
-                  </td>
-
-                  <td>
-                    <?= htmlspecialchars($p['nm_lngkp059'] ?? '', ENT_QUOTES, 'UTF-8') ?>
-                  </td>
-
-                  <td>
-                    <?= htmlspecialchars($p['no_hp059'] ?? '', ENT_QUOTES, 'UTF-8') ?>
-                  </td>
-
-                  <td>
-                    <?= htmlspecialchars($p['almt_lngkp059'] ?? '', ENT_QUOTES, 'UTF-8') ?>
-                  </td>
+                  <td><?= htmlspecialchars($user, ENT_QUOTES, 'UTF-8') ?></td>
+                  <td><?= htmlspecialchars($nik, ENT_QUOTES, 'UTF-8') ?></td>
+                  <td><?= htmlspecialchars($nama, ENT_QUOTES, 'UTF-8') ?></td>
+                  <td><?= htmlspecialchars($hp, ENT_QUOTES, 'UTF-8') ?></td>
+                  <td><?= htmlspecialchars($alamat, ENT_QUOTES, 'UTF-8') ?></td>
 
                   <!-- Foto KTP -->
                   <td>
-                    <?php if (!empty($p['ft_ktp'])) : ?>
-                      <img
-                        src="<?= base_url('img/' . rawurlencode($p['ft_ktp'])) ?>"
-                        width="100"
-                        height="70"
-                        style="object-fit: cover;"
-                        alt="Foto KTP">
+                    <?php if (!empty($ktp)) : ?>
+                      <img src="<?= base_url('img/' . rawurlencode($ktp)) ?>" width="100" height="70" style="object-fit: cover;" alt="Foto KTP">
                     <?php else : ?>
                       Tidak ada foto
                     <?php endif; ?>
@@ -97,13 +84,8 @@
 
                   <!-- Foto SIM A -->
                   <td>
-                    <?php if (!empty($p['ft_sim_a'])) : ?>
-                      <img
-                        src="<?= base_url('img/' . rawurlencode($p['ft_sim_a'])) ?>"
-                        width="100"
-                        height="70"
-                        style="object-fit: cover;"
-                        alt="Foto SIM A">
+                    <?php if (!empty($sim)) : ?>
+                      <img src="<?= base_url('img/' . rawurlencode($sim)) ?>" width="100" height="70" style="object-fit: cover;" alt="Foto SIM A">
                     <?php else : ?>
                       Tidak ada foto
                     <?php endif; ?>
@@ -111,12 +93,12 @@
 
                   <!-- Tombol Aksi -->
                   <td>
-                    <a href="<?= base_url('?url=c_master/Penyewa_C059/edit/' . urlencode($p['Nik059'])) ?>"
+                    <a href="<?= base_url('c_master/Penyewa_C059/edit/' . urlencode($nik)) ?>"
                        class="btn btn-warning btn-sm">
                       <i class="fas fa-edit"></i> Edit
                     </a>
 
-                    <a href="<?= base_url('?url=c_master/Penyewa_C059/hapus/' . urlencode($p['Nik059'])) ?>"
+                    <a href="<?= base_url('c_master/Penyewa_C059/hapus/' . urlencode($nik)) ?>"
                        class="btn btn-danger btn-sm"
                        onclick="return confirm('Yakin ingin menghapus data penyewa ini?')">
                       <i class="fas fa-trash"></i> Hapus

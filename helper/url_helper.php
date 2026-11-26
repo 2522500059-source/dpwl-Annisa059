@@ -1,10 +1,9 @@
-
 <?php
+
 function base_url($path = '')
 {
     global $config;
 
-    // Memeriksa base_url
     if (!isset($config) || !isset($config['base_url']) || $config['base_url'] == null) {
         $config['base_url'] = 'http://localhost/dpwl-Annisa059/';
     }

@@ -1,86 +1,69 @@
-
 <?php
-
 require_once 'config/autoload.php';
 require_once 'config/routes.php';
 require_once 'config/config.php';
-require_once 'helper/url_helper.php';
 
-// Mengambil URL dari browser
-$url = isset($_GET['url']) ? $_GET['url'] : $route['default_controller'] . '/index';
-
-if (empty($url)) {
-    $url = $route['default_controller'] . '/index';
+// TAMBAHAN - BIAR BASEURL BISA DIBACA DI SEMUA VIEW / HEADER
+if (!defined('BASEURL')) {
+    define('BASEURL', $config['base_url']);
 }
 
-// Memisahkan URL
+require_once 'helper/url_helper.php';
+
+$url = $_GET['url'] ?? $route['default_controller'] . '/index';
+if ($url == '') {
+    $url = $route['default_controller']. '/index';
+}
+
 $url = trim($url, '/');
 $segment = explode('/', $url);
 
-// Menentukan controller, method, dan parameter
-if (isset($segment[0]) && $segment[0] == 'c_master') {
-
-    $controller = $segment[1] ?? '';
+// CEK APAKAH SEGMENT PERTAMA ADALAH FOLDER
+if (isset($segment[0]) && is_dir('controller/' . $segment[0])) {
+    // URL = c_master/Mobil_C/index ATAU m_shop/Sewa_C/simpan/xxx
+    $folder = $segment[0]; // c_master / m_shop / c_shop
+    $controller = $segment[1] ?? $route['default_controller'];
     $method = $segment[2] ?? 'index';
-    $parameter = $segment[3] ?? null;
+    $parameter = isset($segment[3]) ? urldecode($segment[3]) : null;
+    if ($parameter === '') $parameter = null;
 
+    $controllerName = $controller; // Jangan di ucfirst, biar Mobil_C tetap Mobil_C
+    $controllerFile = 'controller/'.$folder.'/'.$controllerName.'.php';
 } else {
-
+    // URL = Mobil_C/index ATAU Sewa_C/simpan/xxx
     $controller = $segment[0] ?? $route['default_controller'];
     $method = $segment[1] ?? 'index';
-    $parameter = $segment[2] ?? null;
+    $parameter = isset($segment[2]) ? urldecode($segment[2]) : null;
+    if ($parameter === '') $parameter = null;
 
+    $controllerName = ucfirst($controller);
+    // Cek di semua folder controller: root, c_master, m_shop, c_shop
+    if (file_exists('controller/'.$controllerName.'.php')) {
+        $controllerFile = 'controller/'.$controllerName.'.php';
+    } elseif (file_exists('controller/c_master/'.$controllerName.'.php')) {
+        $controllerFile = 'controller/c_master/'.$controllerName.'.php';
+    } elseif (file_exists('controller/m_shop/'.$controllerName.'.php')) {
+        $controllerFile = 'controller/m_shop/'.$controllerName.'.php';
+    } elseif (file_exists('controller/c_shop/'.$controllerName.'.php')) {
+        $controllerFile = 'controller/c_shop/'.$controllerName.'.php';
+    } else {
+        $controllerFile = 'controller/c_master/'.$controllerName.'.php';
+    }
 }
 
-// Nama controller
-$controllerName = $controller;
-
-// Menentukan lokasi file controller
-if (
-    $controllerName == 'Mobil_C' ||
-    $controllerName == 'Penyewa_C059'
-) {
-    $controllerFile = 'controller/c_master/' . $controllerName . '.php';
+if (file_exists($controllerFile)) {
+    require_once $controllerFile;
+    $objController = new $controllerName();
+    if (method_exists($objController, $method)) {
+        if ($parameter !== null) {
+            $objController->$method($parameter);
+        } else {
+            $objController->$method();
+        }
+    } else {
+        echo "Method $method tidak ditemukan di $controllerName.";
+    }
 } else {
-    $controllerFile = 'controller/' . $controllerName . '.php';
+    echo "Controller tidak ditemukan: $controllerFile";
 }
-
-// Memeriksa apakah file controller tersedia
-if (!file_exists($controllerFile)) {
-
-    die("Controller tidak ditemukan: " . $controllerFile);
-
-}
-
-// Memanggil file controller
-require_once $controllerFile;
-
-// Memeriksa apakah class controller tersedia
-if (!class_exists($controllerName)) {
-
-    die("Class controller tidak ditemukan: " . $controllerName);
-
-}
-
-// Membuat objek controller
-$objController = new $controllerName();
-
-// Memeriksa apakah method tersedia
-if (!method_exists($objController, $method)) {
-
-    die("Method tidak ditemukan: " . $method);
-
-}
-
-// Menjalankan method controller
-if ($parameter !== null) {
-
-    $objController->$method($parameter);
-
-} else {
-
-    $objController->$method();
-
-}
-
 ?>
